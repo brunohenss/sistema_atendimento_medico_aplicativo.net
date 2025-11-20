@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "NpmasUT+4eGsxFYeWTDjqmDrndjnARX57d09shIoT2c=",
+  "Source": "AtendimentoMedico.WebAPI",
+  "BasePath": "_content/AtendimentoMedico.WebAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
