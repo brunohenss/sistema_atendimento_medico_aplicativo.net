@@ -1,0 +1,12 @@
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/Core/Domain/bin/Debug/net8.0/AtendimentoMedico.Core.Domain.deps.json
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/Core/Domain/bin/Debug/net8.0/AtendimentoMedico.Core.Domain.dll
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/Core/Domain/bin/Debug/net8.0/AtendimentoMedico.Core.Domain.pdb
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/Core/Domain/obj/Debug/net8.0/AtendimentoMedico.Core.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/Core/Domain/obj/Debug/net8.0/AtendimentoMedico.Core.Domain.AssemblyInfoInputs.cache
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/Core/Domain/obj/Debug/net8.0/AtendimentoMedico.Core.Domain.AssemblyInfo.cs
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/Core/Domain/obj/Debug/net8.0/AtendimentoMedico.Core.Domain.csproj.CoreCompileInputs.cache
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/Core/Domain/obj/Debug/net8.0/AtendimentoMedico.Core.Domain.sourcelink.json
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/Core/Domain/obj/Debug/net8.0/AtendimentoMedico.Core.Domain.dll
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/Core/Domain/obj/Debug/net8.0/refint/AtendimentoMedico.Core.Domain.dll
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/Core/Domain/obj/Debug/net8.0/AtendimentoMedico.Core.Domain.pdb
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/Core/Domain/obj/Debug/net8.0/ref/AtendimentoMedico.Core.Domain.dll

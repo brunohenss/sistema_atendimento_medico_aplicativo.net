@@ -14,7 +14,7 @@ public class PacienteRepository : Repository<Paciente>
     {
     }
 
-    public async Task<IEnumerable<Paciente>> ObterAtivosASync()
+    public async Task<IEnumerable<Paciente>> ObterAtivosAsync()
     {
         return await _dbSet
         .Where(p => p.Ativo)

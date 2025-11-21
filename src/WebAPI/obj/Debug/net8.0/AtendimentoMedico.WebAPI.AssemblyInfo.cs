@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("AtendimentoMedico.Infrastructure.Persistence")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("AtendimentoMedico.WebAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d32cd415c2d38405dbae64e34ad88486cdd23469")]
-[assembly: System.Reflection.AssemblyProductAttribute("AtendimentoMedico.Infrastructure.Persistence")]
-[assembly: System.Reflection.AssemblyTitleAttribute("AtendimentoMedico.Infrastructure.Persistence")]
+[assembly: System.Reflection.AssemblyProductAttribute("AtendimentoMedico.WebAPI")]
+[assembly: System.Reflection.AssemblyTitleAttribute("AtendimentoMedico.WebAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.

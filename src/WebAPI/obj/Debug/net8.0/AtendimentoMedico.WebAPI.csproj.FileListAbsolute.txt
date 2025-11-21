@@ -1,0 +1,8 @@
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/WebAPI/obj/Debug/net8.0/AtendimentoMedico.WebAPI.csproj.AssemblyReference.cache
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/WebAPI/obj/Debug/net8.0/AtendimentoMedico.WebAPI.GeneratedMSBuildEditorConfig.editorconfig
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/WebAPI/obj/Debug/net8.0/AtendimentoMedico.WebAPI.AssemblyInfoInputs.cache
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/WebAPI/obj/Debug/net8.0/AtendimentoMedico.WebAPI.AssemblyInfo.cs
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/WebAPI/obj/Debug/net8.0/AtendimentoMedico.WebAPI.csproj.CoreCompileInputs.cache
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/WebAPI/obj/Debug/net8.0/AtendimentoMedico.WebAPI.MvcApplicationPartsAssemblyInfo.cs
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/WebAPI/obj/Debug/net8.0/AtendimentoMedico.WebAPI.MvcApplicationPartsAssemblyInfo.cache
+/home/brunohenss/Disk2/Projetos/aplicativo_net_desafio/AtendimentoMedico/src/WebAPI/obj/Debug/net8.0/AtendimentoMedico.WebAPI.sourcelink.json
