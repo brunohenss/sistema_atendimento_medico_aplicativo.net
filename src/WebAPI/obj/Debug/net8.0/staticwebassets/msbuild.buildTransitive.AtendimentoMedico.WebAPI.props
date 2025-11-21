@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../buildMultiTargeting/AtendimentoMedico.WebAPI.props" />
-</Project>

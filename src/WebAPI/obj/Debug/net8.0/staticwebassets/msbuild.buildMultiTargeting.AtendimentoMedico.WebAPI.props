@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../build/AtendimentoMedico.WebAPI.props" />
-</Project>
