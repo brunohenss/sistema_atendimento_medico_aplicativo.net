@@ -4,7 +4,7 @@ using AtendimentoMedico.Core.Domain.Entities;
 
 namespace AtendimentoMedico.Core.Domain.Interfaces;
 
-public class IPacienteRepository : IRepository<Paciente>
+public interface IPacienteRepository : IRepository<Paciente>
 {
     Task<IEnumerable<Paciente>> ObterAtivosAsync();
 

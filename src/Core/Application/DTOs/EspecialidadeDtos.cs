@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AtendimentoMedico.Core.Application.DTOs;
 
-public class CriarEspecialidadaeDto
+public class CriarEspecialidadeDto
 {
     [Required(ErrorMessage = "O nome da especialidade é obrigatório")]
     [StringLength(100, MinimumLength = 2, ErrorMessage = "O nome deve ter entre 2 e 100 caracteres")]
