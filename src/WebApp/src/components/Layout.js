@@ -9,14 +9,14 @@ const Layout = ({ children }) => {
   };
 
   const navItems = [
-    { path: '/', label: 'Fila de Atendimento', icon: '📋' },
-    { path: '/pacientes', label: 'Pacientes', icon: '👥' },
-    { path: '/triagem', label: 'Triagem', icon: '🩺' },
+    { path: '/', label: 'Fila de Atendimento'},
+    { path: '/pacientes', label: 'Pacientes'},
+    { path: '/triagem', label: 'Triagem'},
   ];
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
+      {/*header*/}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
@@ -45,7 +45,7 @@ const Layout = ({ children }) => {
         </div>
       </header>
 
-      {/* Navigation */}
+      {/*navigation*/}
       <nav className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-1">
@@ -67,16 +67,16 @@ const Layout = ({ children }) => {
         </div>
       </nav>
 
-      {/* Main Content */}
+      {/*main content*/}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {children}
       </main>
 
-      {/* Footer */}
+      {/*footer*/}
       <footer className="bg-white border-t mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center text-sm text-gray-500">
-            © 2024 Aplicativo.net - Sistema de Atendimento Médico
+            © 2025 Aplicativo.net - Sistema de Atendimento Médico by Bruno Henrique
           </div>
         </div>
       </footer>
