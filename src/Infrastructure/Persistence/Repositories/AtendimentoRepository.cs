@@ -45,6 +45,19 @@ public class AtendimentoRepository : Repository<Atendimento>, IAtendimentoReposi
 
     public async Task<Atendimento?> ObterProximoAguardandoAsync()
     {
+        var proximoComTriagem = await _dbSet
+        .Include(a => a.Paciente)
+        .Include(a => a.Triagem)
+            .ThenInclude(t => t!.Especialidade)
+        .Where(a => a.Status == StatusAtendimento.EmTriagem)
+        .OrderBy(a => a.DataHoraChegada)
+        .FirstOrDefaultAsync();
+        
+        if (proximoComTriagem != null)
+        {
+            return proximoComTriagem;
+        }
+        
         return await _dbSet
         .Include(a => a.Paciente)
         .Include(a => a.Triagem)

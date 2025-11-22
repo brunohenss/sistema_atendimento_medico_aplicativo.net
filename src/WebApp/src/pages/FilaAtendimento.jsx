@@ -10,13 +10,14 @@ const FilaAtendimento = () => {
   const [loading, setLoading] = useState(false);
   const [estatisticas, setEstatisticas] = useState({
     aguardando: 0,
+    emTriagem: 0,
     emAtendimento: 0,
     total: 0
   });
 
   useEffect(() => {
     carregarDados();
-    const interval = setInterval(carregarDados, 15000);
+    const interval = setInterval(carregarDados, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -39,9 +40,8 @@ const FilaAtendimento = () => {
   const calcularEstatisticas = (filaAtual) => {
     const stats = {
       aguardando: filaAtual.filter(a => a.status === 'Aguardando').length,
-      emAtendimento: filaAtual.filter(a => 
-        a.status === 'EmAtendimento' || a.status === 'EmTriagem'
-      ).length,
+      emTriagem: filaAtual.filter(a => a.status === 'EmTriagem').length,
+      emAtendimento: filaAtual.filter(a => a.status === 'EmAtendimento').length,
       total: filaAtual.length
     };
     setEstatisticas(stats);
@@ -88,9 +88,11 @@ const FilaAtendimento = () => {
   };
 
   const chamarProximo = async () => {
-    const aguardando = fila.filter(a => a.status === 'Aguardando');
+    const aguardandoOuTriagem = fila.filter(
+      a => a.status === 'Aguardando' || a.status === 'EmTriagem'
+    );
     
-    if (aguardando.length === 0) {
+    if (aguardandoOuTriagem.length === 0) {
       toast.info('Não há pacientes aguardando na fila');
       return;
     }
@@ -108,6 +110,59 @@ const FilaAtendimento = () => {
     } catch (error) {
       console.error('Erro ao chamar próximo:', error);
       const mensagem = error.response?.data?.mensagem || 'Erro ao chamar paciente';
+      toast.error(mensagem);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const chamarPaciente = async (atendimentoId, nomePaciente, numeroSequencial) => {
+    setLoading(true);
+    try {
+      const atendimentoRes = await api.get(`/atendimentos/${atendimentoId}`);
+      const atendimento = atendimentoRes.data;
+
+      if (atendimento.status === 'EmAtendimento') {
+        toast.warning('Este paciente já está em atendimento');
+        return;
+      }
+
+      if (atendimento.status === 'Finalizado') {
+        toast.warning('Este atendimento já foi finalizado');
+        return;
+      }
+
+      const response = await api.post('/atendimentos/chamar-proximo');
+      
+      if (response.data && response.data.id === atendimentoId) {
+        toast.success(`Chamando paciente ${nomePaciente} - Senha ${numeroSequencial}`);
+        await carregarDados();
+      } else {
+        await carregarDados();
+        toast.info('Fila atualizada');
+      }
+    } catch (error) {
+      console.error('Erro ao chamar paciente:', error);
+      const mensagem = error.response?.data?.mensagem || 'Erro ao chamar paciente';
+      toast.error(mensagem);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const finalizarAtendimento = async (atendimentoId, nomePaciente, numeroSequencial) => {
+    if (!window.confirm(`Deseja finalizar o atendimento do paciente ${nomePaciente}?`)) {
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await api.patch(`/atendimentos/${atendimentoId}/finalizar`);
+      toast.success(`Atendimento da senha ${numeroSequencial} finalizado com sucesso!`);
+      await carregarDados();
+    } catch (error) {
+      console.error('Erro ao finalizar atendimento:', error);
+      const mensagem = error.response?.data?.mensagem || 'Erro ao finalizar atendimento';
       toast.error(mensagem);
     } finally {
       setLoading(false);
@@ -144,11 +199,49 @@ const FilaAtendimento = () => {
     }
   };
 
+  const renderAcoes = (atendimento) => {
+    const { status, atendimentoId, nomePaciente, numeroSequencial } = atendimento;
+
+    if (status === 'Aguardando') {
+      return (
+        <span className="text-sm text-gray-500">
+          Aguardando triagem
+        </span>
+      );
+    }
+
+    if (status === 'EmTriagem') {
+      return (
+        <button
+          onClick={() => chamarPaciente(atendimentoId, nomePaciente, numeroSequencial)}
+          disabled={loading}
+          className="px-4 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+        >
+          Chamar para Atendimento
+        </button>
+      );
+    }
+
+    if (status === 'EmAtendimento') {
+      return (
+        <button
+          onClick={() => finalizarAtendimento(atendimentoId, nomePaciente, numeroSequencial)}
+          disabled={loading}
+          className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+        >
+          Finalizar Atendimento
+        </button>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <div className="space-y-6">
+      {/*modal de gerar nova senha*/}
       <div className="bg-white rounded-lg shadow p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/*modal gerar nova senha*/}
           <div>
             <h3 className="text-lg font-semibold mb-4">Gerar nova senha</h3>
             <div className="flex gap-2">
@@ -182,49 +275,45 @@ const FilaAtendimento = () => {
             </div>
           </div>
 
-          {/*chamar paciente*/}
+          {/*chamar novo paciente*/}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Chamar paciente</h3>
+            <h3 className="text-lg font-semibold mb-4">Chamar próximo paciente</h3>
             <button
               onClick={chamarProximo}
-              disabled={loading || estatisticas.aguardando === 0}
+              disabled={loading || (estatisticas.aguardando === 0 && estatisticas.emTriagem === 0)}
               className="w-full px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
             >
-              {estatisticas.aguardando === 0 
+              {(estatisticas.aguardando === 0 && estatisticas.emTriagem === 0)
                 ? 'Nenhum paciente aguardando' 
                 : 'Chamar Próximo Paciente'}
             </button>
+            <p className="text-xs text-gray-500 mt-2">
+              Prioridade: Pacientes com triagem realizada
+            </p>
           </div>
         </div>
       </div>
 
-      {/*algumas estatisticas*/}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/*estatisticas*/}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-yellow-50 rounded-lg shadow p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-yellow-600 text-sm font-medium">Aguardando</p>
-              <p className="text-3xl font-bold text-yellow-700">{estatisticas.aguardando}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-green-50 rounded-lg shadow p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-green-600 text-sm font-medium">Em Atendimento</p>
-              <p className="text-3xl font-bold text-green-700">{estatisticas.emAtendimento}</p>
-            </div>
-          </div>
+          <p className="text-yellow-600 text-sm font-medium">Aguardando</p>
+          <p className="text-3xl font-bold text-yellow-700">{estatisticas.aguardando}</p>
         </div>
 
         <div className="bg-blue-50 rounded-lg shadow p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-blue-600 text-sm font-medium">Total na Fila</p>
-              <p className="text-3xl font-bold text-blue-700">{estatisticas.total}</p>
-            </div>
-          </div>
+          <p className="text-blue-600 text-sm font-medium">Em Triagem</p>
+          <p className="text-3xl font-bold text-blue-700">{estatisticas.emTriagem}</p>
+        </div>
+
+        <div className="bg-green-50 rounded-lg shadow p-6">
+          <p className="text-green-600 text-sm font-medium">Em Atendimento</p>
+          <p className="text-3xl font-bold text-green-700">{estatisticas.emAtendimento}</p>
+        </div>
+
+        <div className="bg-purple-50 rounded-lg shadow p-6">
+          <p className="text-purple-600 text-sm font-medium">Total na Fila</p>
+          <p className="text-3xl font-bold text-purple-700">{estatisticas.total}</p>
         </div>
       </div>
 
@@ -238,36 +327,24 @@ const FilaAtendimento = () => {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Senha
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Paciente
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Telefone
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Especialidade
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Tempo
-                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Senha</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Paciente</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Telefone</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Especialidade</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tempo</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ações</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {fila.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="px-6 py-8 text-center text-gray-500">
+                  <td colSpan="7" className="px-6 py-8 text-center text-gray-500">
                     Nenhum paciente na fila
                   </td>
                 </tr>
               ) : (
                 fila.map((atendimento) => {
-                  //calcula tempo de espera em utc
                   const tempoEspera = calcularTempoEspera(atendimento.dataHoraChegada);
                   
                   return (
@@ -295,6 +372,9 @@ const FilaAtendimento = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {formatarTempoEspera(tempoEspera)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {renderAcoes(atendimento)}
                       </td>
                     </tr>
                   );

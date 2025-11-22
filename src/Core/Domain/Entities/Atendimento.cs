@@ -33,8 +33,8 @@ public class Atendimento
 
     public void ChamarPaciente()
     {
-        if (Status != StatusAtendimento.Aguardando)
-            throw new InvalidOperationException("apenas pacientes aguardando podem ser chamados");
+        if (Status != StatusAtendimento.Aguardando && Status != StatusAtendimento.EmTriagem)
+            throw new InvalidOperationException("apenas pacientes aguardando ou em triagem podem ser chamados");
 
         Status = StatusAtendimento.EmAtendimento;
         DataHoraChamada = DateTime.UtcNow;
