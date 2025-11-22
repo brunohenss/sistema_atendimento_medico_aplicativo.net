@@ -11,7 +11,7 @@ using AtendimentoMedico.Infrastructure.Persistence.Repositories;
 
 namespace AtendimentoMedico.Infrastructure.Persistence.Repositories;
 
-public class AtendimentoRepository : Repository<Atendimento>
+public class AtendimentoRepository : Repository<Atendimento>, IAtendimentoRepository
 {
     public AtendimentoRepository(AppDbContext context) : base(context)
     {
@@ -43,7 +43,7 @@ public class AtendimentoRepository : Repository<Atendimento>
         .ToListAsync();
     }
 
-    public async Task<Atendimento?> ObterProximoAtendimentoAsync()
+    public async Task<Atendimento?> ObterProximoAguardandoAsync()
     {
         return await _dbSet
         .Include(a => a.Paciente)

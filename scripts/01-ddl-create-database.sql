@@ -8,7 +8,7 @@ BEGIN
 END
 GO
 
-USE     CREATE DATABASE AtendimentoMedicoDB;
+USE AtendimentoMedicoDB;
 GO
 
 -- tabela: pacientes

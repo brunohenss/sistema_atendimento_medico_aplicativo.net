@@ -8,7 +8,7 @@ using AtendimentoMedico.Infrastructure.Persistence.Context;
 
 namespace AtendimentoMedico.Infrastructure.Persistence.Repositories;
 
-public class PacienteRepository : Repository<Paciente>
+public class PacienteRepository : Repository<Paciente>, IPacienteRepository
 {
     public PacienteRepository(AppDbContext context) : base(context)
     {

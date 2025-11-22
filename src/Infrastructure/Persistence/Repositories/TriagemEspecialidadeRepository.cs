@@ -7,7 +7,7 @@ using AtendimentoMedico.Core.Domain.Interfaces;
 using AtendimentoMedico.Infrastructure.Persistence.Context;
 
 namespace AtendimentoMedico.Infrastructure.Persistence.Repositories;
-    public class TriagemRepository : Repository<Triagem>
+    public class TriagemRepository : Repository<Triagem>, ITriagemRepository
     {
         public TriagemRepository(AppDbContext context) : base(context)
         {
@@ -47,7 +47,7 @@ namespace AtendimentoMedico.Infrastructure.Persistence.Repositories;
         }
     }
 
-    public class EspecialidadeRepository : Repository<Especialidade>
+    public class EspecialidadeRepository : Repository<Especialidade>, IEspecialidadeRepository
     {
         public EspecialidadeRepository(AppDbContext context) : base(context)
         {
