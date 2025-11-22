@@ -116,7 +116,7 @@ public class AtendimentoRepository : Repository<Atendimento>, IAtendimentoReposi
             DataReferencia = dataReferencia
         };
     }
-        
+
     public async Task<IEnumerable<Atendimento>> ObterAtendimentosDoDiaAsync(DateTime? data = null)
     {
         var dataReferencia = data ?? DateTime.Today;
@@ -128,5 +128,14 @@ public class AtendimentoRepository : Repository<Atendimento>, IAtendimentoReposi
         .Where(a => a.DataHoraChegada.Date == dataReferencia.Date)
         .OrderBy(a => a.DataHoraChegada)
         .ToListAsync();
+    }
+    
+    public async Task<bool>  PacientePossuiAtendimentoAtivoAsync(int pacienteId)
+    {
+        return await _dbSet
+        .AnyAsync(a => a.PacienteId == pacienteId &&
+            (a.Status == StatusAtendimento.Aguardando ||
+            a.Status == StatusAtendimento.EmTriagem ||
+            a.Status == StatusAtendimento.EmAtendimento));
     }
 }

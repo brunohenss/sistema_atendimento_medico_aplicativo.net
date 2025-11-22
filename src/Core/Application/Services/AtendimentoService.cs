@@ -31,6 +31,16 @@ namespace AtendimentoMedico.Core.Application.Services
             if (!paciente.Ativo)
                 throw new InvalidOperationException("O paciente está inativo no sistema.");
 
+            var possuiAtendimentoAtivo = await _atendimentoRepository
+                .PacientePossuiAtendimentoAtivoAsync(dto.PacienteId);
+                
+            if (possuiAtendimentoAtivo)
+            {
+                throw new InvalidOperationException(
+                    "Este paciente já possui um atendimento em andamento" +
+                    "Finalize o atendimento anterior antes de gerar uma nova senha");
+            }
+
             var numeroSequencial = await _atendimentoRepository.GerarProximoNumeroSequencialAsync();
 
             var atendimento = new Atendimento

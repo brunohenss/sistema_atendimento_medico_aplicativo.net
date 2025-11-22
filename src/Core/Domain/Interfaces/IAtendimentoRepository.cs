@@ -20,5 +20,6 @@ public interface IAtendimentoRepository : IRepository<Atendimento>
     Task<Atendimento?> ObterCompletoAsync(int id);
 
     Task<IEnumerable<Atendimento>> ObterAtendimentosDoDiaAsync(DateTime? data = null);
-        
+
+    Task<bool> PacientePossuiAtendimentoAtivoAsync(int pacienteId);
 }
