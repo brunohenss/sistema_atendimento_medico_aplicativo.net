@@ -123,7 +123,7 @@ builder.Services.AddLogging(logging =>
     logging.ClearProviders();
     logging.AddConsole();
     logging.AddDebug();
-    
+
     if (builder.Environment.IsDevelopment())
     {
         logging.SetMinimumLevel(LogLevel.Debug);
@@ -133,6 +133,8 @@ builder.Services.AddLogging(logging =>
         logging.SetMinimumLevel(LogLevel.Information);
     }
 });
+
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 

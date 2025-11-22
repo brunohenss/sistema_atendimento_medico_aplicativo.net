@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AtendimentoMedico.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:AtendimentoMedico.WebAPI.Controllers.AtendimentosController.FinalizarAtendimento(System.Int32)">
+            finaliza um atendimento
+        </member>
+    </members>
+</doc>
