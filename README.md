@@ -1,7 +1,7 @@
 # Sistema de Atendimento Médico
 # DOCUMENTAÇÃO
 
-Sistema completo para gerenciamento de fila de atendimento médico com triagem, desenvolvido como parte do processo seletivo para Desenvolvedor .NET Full Stack na Aplicativo.net.
+Sistema completo para gerenciamento de fila de atendimento médico com triagem.
 
 ## Descrição do Projeto
 
@@ -305,7 +305,7 @@ AtendimentoMedico/
 
 ## Autor
 
-Desenvolvido por Bruno Henrique como projeto de avaliação técnica para vaga de Desenvolvedor .NET Full Stack na Aplicativo.net.
+Desenvolvido por Bruno Henrique.
 
 ## Licença
 
